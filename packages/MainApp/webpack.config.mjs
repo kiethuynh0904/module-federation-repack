@@ -17,12 +17,12 @@ import * as Repack from '@callstack/repack';
  * @param env Environment options passed from either Webpack CLI or React Native CLI
  *            when running with `react-native start/bundle`.
  */
-export default (env) => {
+export default env => {
   console.log(env);
   const {
     mode = 'development',
     context = Repack.getDirname(import.meta.url),
-    entry = './index.tsx',
+    entry = './index.js',
     platform = process.env.PLATFORM,
     minimize = mode === 'production',
     devServer = undefined,
@@ -110,7 +110,7 @@ export default (env) => {
       path: path.join(dirname, 'build', platform),
       filename: 'index.bundle',
       chunkFilename: '[name].chunk.bundle',
-      publicPath: Repack.getPublicPath({ platform, devServer }),
+      publicPath: Repack.getPublicPath({platform, devServer}),
     },
     /**
      * Configures optimization of the built bundle.
@@ -195,8 +195,8 @@ export default (env) => {
         {
           test: Repack.getAssetExtensionsRegExp(
             Repack.ASSET_EXTENSIONS.filter(
-              (ext) => ext !== 'svg' && ext !== 'ico'
-            )
+              ext => ext !== 'svg' && ext !== 'ico',
+            ),
           ),
           use: {
             loader: '@callstack/repack/assets-loader',
@@ -254,10 +254,30 @@ export default (env) => {
           react: {
             ...Repack.Federated.SHARED_REACT,
             requiredVersion: '18.0.0',
+            singleton: true,
+            eager: true,
           },
           'react-native': {
             ...Repack.Federated.SHARED_REACT_NATIVE,
             requiredVersion: '0.69.1',
+            singleton: true,
+            eager: true,
+          },
+          '@react-navigation/native': {
+            singleton: true,
+            eager: true,
+          },
+          '@react-navigation/bottom-tabs': {
+            singleton: true,
+            eager: true,
+          },
+          'react-native-gesture-handler': {
+            singleton: true,
+            eager: true, // to be figured out
+          },
+          '@react-navigation/stack': {
+            singleton: true,
+            eager: true, // to be figured out
           },
         },
       }),

@@ -248,9 +248,10 @@ export default env => {
       }),
 
       new Repack.plugins.ModuleFederationPlugin({
-        name: 'MicroApp1',
+        name: 'micro1',
         exposes: {
           './App': './App.tsx',
+          './my_utils': './src/my_utils.ts',
         },
         shared: {
           react: {
@@ -261,6 +262,22 @@ export default env => {
             ...Repack.Federated.SHARED_REACT_NATIVE,
             eager: STANDALONE, // to be figured out
             requiredVersion: '0.69.1',
+          },
+          '@react-navigation/native': {
+            singleton: true,
+            eager: true,
+          },
+          '@react-navigation/bottom-tabs': {
+            singleton: true,
+            eager: true,
+          },
+          'react-native-gesture-handler': {
+            singleton: true,
+            eager: true, // to be figured out
+          },
+          '@react-navigation/stack': {
+            singleton: true,
+            eager: true, // to be figured out
           },
         },
       }),

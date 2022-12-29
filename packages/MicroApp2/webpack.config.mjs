@@ -248,20 +248,23 @@ export default env => {
       }),
 
       new Repack.plugins.ModuleFederationPlugin({
-        name: 'MicroApp2',
+        name: 'micro2',
         exposes: {
           './App': './App.tsx',
         },
         shared: {
           react: {
             ...Repack.Federated.SHARED_REACT,
-            eager: STANDALONE, // to be figured out
+            // eager: STANDALONE, // to be figured out
           },
           'react-native': {
             ...Repack.Federated.SHARED_REACT_NATIVE,
-            eager: STANDALONE, // to be figured out
+            // eager: STANDALONE, // to be figured out
             requiredVersion: '0.69.1',
           },
+        },
+        remotes: {
+          micro1: 'micro1@dynamic',
         },
       }),
     ],
