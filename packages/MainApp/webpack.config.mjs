@@ -244,7 +244,7 @@ export default env => {
         output: {
           bundleFilename,
           sourceMapFilename,
-          assetsPath,
+          assetsPath: Repack.getDirname(import.meta.url),
         },
       }),
 

@@ -1,6 +1,6 @@
 import {ScriptManager, Script, Federated} from '@callstack/repack/client';
 import {AppRegistry, Platform} from 'react-native';
-import App from '../App';
+import App from './App';
 import {name as appName} from '../app.json';
 
 const LOCAL_HOST = Platform.select({default: 'localhost'});
@@ -8,7 +8,7 @@ const LOCAL_HOST = Platform.select({default: 'localhost'});
 const resolveURL = Federated.createURLResolver({
   containers: {
     micro1: `http://${LOCAL_HOST}:9000/[name][ext]`,
-    micro2: `http://${LOCAL_HOST}:9001/[name][ext]`,
+    miniapp: `http://${LOCAL_HOST}:9001/[name][ext]`,
   },
 });
 
